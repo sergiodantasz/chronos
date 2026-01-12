@@ -1,10 +1,16 @@
 import { Container } from './components/Container'
 import { Heading } from './components/Heading'
+import { Logo } from './components/Logo'
 
 export const App = () => {
   return (
-    <Container>
-      <Heading>Title</Heading>
-    </Container>
+    <>
+      <Container>
+        <Logo />
+      </Container>
+      <Container>
+        <Heading>Title</Heading>
+      </Container>
+    </>
   )
 }
