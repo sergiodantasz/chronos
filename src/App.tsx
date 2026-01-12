@@ -1,6 +1,6 @@
 import { Container } from './components/Container'
-import { Heading } from './components/Heading'
 import { Logo } from './components/Logo'
+import { Menu } from './components/Menu'
 
 export const App = () => {
   return (
@@ -9,7 +9,7 @@ export const App = () => {
         <Logo />
       </Container>
       <Container>
-        <Heading>Title</Heading>
+        <Menu />
       </Container>
     </>
   )
