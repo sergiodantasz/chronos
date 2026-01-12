@@ -1,16 +1,10 @@
-import { TimerIcon } from 'lucide-react'
-
+import { Container } from './components/Container'
 import { Heading } from './components/Heading'
 
 export const App = () => {
   return (
-    <>
-      <Heading>
-        Hello, World!
-        <button>
-          <TimerIcon />
-        </button>
-      </Heading>
-    </>
+    <Container>
+      <Heading>Title</Heading>
+    </Container>
   )
 }
