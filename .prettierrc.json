@@ -1,4 +1,18 @@
 {
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "<BUILTIN_MODULES>",
+    "",
+    "^react$",
+    "^react-dom(/.*)?$",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^(?!.*[.]css$)[./].*$",
+    "",
+    "^.*[.]css$"
+  ],
+  "importOrderTypeScriptVersion": "5.9.3",
   "semi": false,
   "arrowParens": "always",
   "endOfLine": "lf",
