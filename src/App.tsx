@@ -1,46 +1,5 @@
-import { Container } from './components/Container'
-import { CountDown } from './components/CountDown'
-import { Cycles } from './components/Cycles'
-import { DefaultInput } from './components/DefaultInput'
-import { Footer } from './components/Footer'
-import { Logo } from './components/Logo'
-import { Menu } from './components/Menu'
+import { Home } from './pages/Home'
 
 export const App = () => {
-  return (
-    <>
-      <Container>
-        <Logo />
-      </Container>
-      <Container>
-        <Menu />
-      </Container>
-      <Container>
-        <CountDown />
-      </Container>
-      <Container>
-        <form
-          className='form'
-          action=''
-        >
-          <div className='formRow'>
-            <DefaultInput
-              id='input'
-              labelText='Task'
-              type='text'
-            />
-          </div>
-          <div className='formRow'>
-            <p>Lorem ipsum dolor sit amet.</p>
-          </div>
-          <div className='formRow'>
-            <Cycles />
-          </div>
-        </form>
-      </Container>
-      <Container>
-        <Footer />
-      </Container>
-    </>
-  )
+  return <Home />
 }
