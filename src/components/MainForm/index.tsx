@@ -11,6 +11,7 @@ import { PlayCircleIcon, StopCircleIcon } from 'lucide-react'
 import { Cycles } from '../Cycles'
 import { DefaultButton } from '../DefaultButton'
 import { DefaultInput } from '../DefaultInput'
+import { Tip } from '../Tip'
 
 import styles from './styles.module.css'
 
@@ -58,7 +59,7 @@ export const MainForm = () => {
         />
       </div>
       <div className={styles.formRow}>
-        <p>Your next break is 25 minutes.</p>
+        <Tip />
       </div>
       {state.currentCycle > 0 && (
         <div className={styles.formRow}>
