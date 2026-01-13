@@ -1,5 +1,11 @@
 import { Home } from './pages/Home'
 
+import { TaskContextProvider } from './contexts/TaskContext/TaskContextProvider'
+
 export const App = () => {
-  return <Home />
+  return (
+    <TaskContextProvider>
+      <Home />
+    </TaskContextProvider>
+  )
 }
