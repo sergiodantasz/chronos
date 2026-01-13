@@ -6,7 +6,7 @@ import { useTaskContext } from '../../contexts/TaskContext/useTaskContext'
 
 import { getNextCycle, getNextCycleType } from '../../utils/cycles'
 
-import { PlayCircleIcon } from 'lucide-react'
+import { PlayCircleIcon, StopCircleIcon } from 'lucide-react'
 
 import { Cycles } from '../Cycles'
 import { DefaultButton } from '../DefaultButton'
@@ -15,7 +15,7 @@ import { DefaultInput } from '../DefaultInput'
 import styles from './styles.module.css'
 
 export const MainForm = () => {
-  const { setState } = useTaskContext()
+  const { state, setState } = useTaskContext()
   const taskNameInput = useRef<HTMLInputElement>(null)
 
   const handleCreateNewTask = (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,6 +46,23 @@ export const MainForm = () => {
     })
   }
 
+  const handleInterruptTask = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    setState((prevState) => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.map((task) => {
+          if (prevState.activeTask && prevState.activeTask.id === task.id) {
+            return { ...task, interruptedAt: Date.now() }
+          }
+          return task
+        }),
+        secondsRemaining: 0,
+        activeTask: null,
+      }
+    })
+  }
+
   return (
     <form
       className={styles.form}
@@ -58,16 +75,34 @@ export const MainForm = () => {
           labelText='Task'
           type='text'
           ref={taskNameInput}
+          disabled={!!state.activeTask}
         />
       </div>
       <div className={styles.formRow}>
-        <p>Lorem ipsum dolor sit amet.</p>
+        <p>Your next break is 25 minutes.</p>
       </div>
-      <div className={styles.formRow}>
-        <Cycles />
-      </div>
+      {state.currentCycle > 0 && (
+        <div className={styles.formRow}>
+          <Cycles />
+        </div>
+      )}
       <div className='formRow'>
-        <DefaultButton icon={<PlayCircleIcon />} />
+        {!state.activeTask ?
+          <DefaultButton
+            aria-label='Start new task'
+            title='Start new task'
+            type='submit'
+            icon={<PlayCircleIcon />}
+          />
+        : <DefaultButton
+            aria-label='Interrupt current task'
+            title='Interrupt current task'
+            type='button'
+            color='red'
+            icon={<StopCircleIcon />}
+            onClick={handleInterruptTask}
+          />
+        }
       </div>
     </form>
   )
