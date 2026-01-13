@@ -4,6 +4,8 @@ import type { Task } from '../../models/Task'
 
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext'
 
+import { getNextCycle, getNextCycleType } from '../../utils/cycles'
+
 import { PlayCircleIcon } from 'lucide-react'
 
 import { Cycles } from '../Cycles'
@@ -14,31 +16,32 @@ import styles from './styles.module.css'
 
 export const MainForm = () => {
   const { setState } = useTaskContext()
-  const taskNameInputRef = useRef<HTMLInputElement>(null)
+  const taskNameInput = useRef<HTMLInputElement>(null)
 
   const handleCreateNewTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (!taskNameInputRef.current) return
-    const taskName = taskNameInputRef.current.value.trim()
+    if (!taskNameInput.current) return
+    const taskName = taskNameInput.current.value.trim()
     if (!taskName) return
-    const newTask: Task = {
-      id: Date.now().toString(),
-      name: taskName,
-      duration: 1,
-      startedAt: Date.now(),
-      completedAt: null,
-      interruptedAt: null,
-      type: 'focusTime',
-    }
-    const secondsRemaining = newTask.duration * 60
     setState((prevState) => {
+      const nextCycle = getNextCycle(prevState.currentCycle)
+      const nextCycleType = getNextCycleType(nextCycle)
+      const newTask: Task = {
+        id: Date.now().toString(),
+        name: taskName,
+        duration: prevState.config[nextCycleType],
+        startedAt: Date.now(),
+        completedAt: null,
+        interruptedAt: null,
+        type: nextCycleType,
+      }
+      const secondsRemaining = newTask.duration * 60
       return {
         ...prevState,
         tasks: [...prevState.tasks, newTask],
         secondsRemaining,
-        formattedSecondsRemaining: '00:00',
         activeTask: newTask,
-        currentCycle: 1,
+        currentCycle: nextCycle,
       }
     })
   }
@@ -54,7 +57,7 @@ export const MainForm = () => {
           id='input'
           labelText='Task'
           type='text'
-          ref={taskNameInputRef}
+          ref={taskNameInput}
         />
       </div>
       <div className={styles.formRow}>
