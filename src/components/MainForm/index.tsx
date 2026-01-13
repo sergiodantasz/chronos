@@ -15,7 +15,7 @@ import { DefaultInput } from '../DefaultInput'
 import styles from './styles.module.css'
 
 export const MainForm = () => {
-  const { state, setState } = useTaskContext()
+  const { state, dispatch } = useTaskContext()
   const taskNameInput = useRef<HTMLInputElement>(null)
 
   const handleCreateNewTask = (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,44 +23,23 @@ export const MainForm = () => {
     if (!taskNameInput.current) return
     const taskName = taskNameInput.current.value.trim()
     if (!taskName) return
-    setState((prevState) => {
-      const nextCycle = getNextCycle(prevState.currentCycle)
-      const nextCycleType = getNextCycleType(nextCycle)
-      const newTask: Task = {
-        id: Date.now().toString(),
-        name: taskName,
-        duration: prevState.config[nextCycleType],
-        startedAt: Date.now(),
-        completedAt: null,
-        interruptedAt: null,
-        type: nextCycleType,
-      }
-      const secondsRemaining = newTask.duration * 60
-      return {
-        ...prevState,
-        tasks: [...prevState.tasks, newTask],
-        secondsRemaining,
-        activeTask: newTask,
-        currentCycle: nextCycle,
-      }
-    })
+    const nextCycle = getNextCycle(state.currentCycle)
+    const nextCycleType = getNextCycleType(nextCycle)
+    const newTask: Task = {
+      id: Date.now().toString(),
+      name: taskName,
+      duration: state.config[nextCycleType],
+      startedAt: Date.now(),
+      completedAt: null,
+      interruptedAt: null,
+      type: nextCycleType,
+    }
+    dispatch({ type: 'START_TASK', payload: newTask })
   }
 
   const handleInterruptTask = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    setState((prevState) => {
-      return {
-        ...prevState,
-        tasks: prevState.tasks.map((task) => {
-          if (prevState.activeTask && prevState.activeTask.id === task.id) {
-            return { ...task, interruptedAt: Date.now() }
-          }
-          return task
-        }),
-        secondsRemaining: 0,
-        activeTask: null,
-      }
-    })
+    dispatch({ type: 'INTERRUPT_TASK' })
   }
 
   return (
