@@ -1,14 +1,18 @@
 import type { Task } from '../../models/Task'
+import type { TaskState } from '../../models/TaskState'
 
-export type TaskActionTypes = 'START_TASK' | 'INTERRUPT_TASK' | 'RESET_STATE'
-
-type TaskActionWithPayload = {
-  type: Exclude<TaskActionTypes, 'INTERRUPT_TASK' | 'RESET_STATE'>
-  payload: Task
-}
+type TaskActionWithPayload =
+  | {
+      type: 'START_TASK'
+      payload: Task
+    }
+  | {
+      type: 'COUNT_DOWN'
+      payload: Pick<TaskState, 'secondsRemaining'>
+    }
 
 type TaskActionWithoutPayload = {
-  type: Exclude<TaskActionTypes, 'START_TASK'>
+  type: 'RESET_STATE' | 'INTERRUPT_TASK' | 'COMPLETE_TASK'
 }
 
 export type TaskActionModel = TaskActionWithPayload | TaskActionWithoutPayload

@@ -31,6 +31,27 @@ export function taskReducer(state: TaskState, action: TaskActionModel) {
         activeTask: null,
       }
     }
+    case 'RESET_STATE': {
+      return state
+    }
+    case 'COMPLETE_TASK': {
+      return {
+        ...state,
+        tasks: state.tasks.map((task) => {
+          if (state.activeTask && state.activeTask.id === task.id) {
+            return { ...task, completedAt: Date.now() }
+          }
+          return task
+        }),
+        secondsRemaining: 0,
+        activeTask: null,
+      }
+    }
+    case 'COUNT_DOWN': {
+      return {
+        ...state,
+        secondsRemaining: action.payload.secondsRemaining,
+      }
+    }
   }
-  return state
 }
