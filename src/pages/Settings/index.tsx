@@ -9,6 +9,8 @@ import { Heading } from '../../components/Heading'
 
 import { useTaskContext } from '../../contexts/TaskContext/useTaskContext'
 
+import { showMessage } from '../../adapters/message'
+
 import { SaveIcon } from 'lucide-react'
 
 import styles from './styles.module.css'
@@ -21,12 +23,33 @@ export const Settings = () => {
 
   const handleSaveSettings = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    showMessage.dismiss()
 
-    const focusTime = focusTimeInput.current?.value
-    const shortBreakTime = shortBreakTimeInput.current?.value
-    const longBreakTime = longBreakTimeInput.current?.value
+    const formErrors: string[] = []
 
-    console.log(focusTime, shortBreakTime, longBreakTime)
+    const focusTime = Number(focusTimeInput.current?.value)
+    const shortBreakTime = Number(shortBreakTimeInput.current?.value)
+    const longBreakTime = Number(longBreakTimeInput.current?.value)
+
+    if (isNaN(focusTime) || isNaN(shortBreakTime) || isNaN(longBreakTime)) {
+      formErrors.push('Please enter only numbers for all fields.')
+    }
+    if (focusTime < 1 || focusTime > 120) {
+      formErrors.push('Enter values between 1 and 120 for focus.')
+    }
+    if (shortBreakTime < 1 || shortBreakTime > 30) {
+      formErrors.push('Enter values between 1 and 30 for short break.')
+    }
+    if (longBreakTime < 1 || longBreakTime > 60) {
+      formErrors.push('Enter values between 1 and 60 for long break.')
+    }
+
+    if (formErrors.length > 0) {
+      formErrors.forEach((error) => {
+        showMessage.error(error)
+      })
+      return
+    }
   }
 
   return (
@@ -50,6 +73,9 @@ export const Settings = () => {
               type='number'
               ref={focusTimeInput}
               defaultValue={state.config.focusTime}
+              min={1}
+              max={120}
+              required
             />
           </div>
           <div className={styles.formRow}>
@@ -59,6 +85,9 @@ export const Settings = () => {
               type='number'
               ref={shortBreakTimeInput}
               defaultValue={state.config.shortBreakTime}
+              min={1}
+              max={30}
+              required
             />
           </div>
           <div className={styles.formRow}>
@@ -68,6 +97,9 @@ export const Settings = () => {
               type='number'
               ref={longBreakTimeInput}
               defaultValue={state.config.longBreakTime}
+              min={1}
+              max={60}
+              required
             />
           </div>
           <div className={styles.formRow}>
