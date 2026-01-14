@@ -6,9 +6,10 @@ import { useTaskContext } from '../../contexts/TaskContext/useTaskContext'
 
 import { getNextCycle, getNextCycleType } from '../../utils/cycles'
 
+import { showMessage } from '../../adapters/message'
+
 import { PlayCircleIcon, StopCircleIcon } from 'lucide-react'
 
-import { showMessage } from '../../adapters/message'
 import { Cycles } from '../Cycles'
 import { DefaultButton } from '../DefaultButton'
 import { DefaultInput } from '../DefaultInput'
@@ -19,6 +20,7 @@ import styles from './styles.module.css'
 export const MainForm = () => {
   const { state, dispatch } = useTaskContext()
   const taskNameInput = useRef<HTMLInputElement>(null)
+  const lastTaskName = state.tasks[state.tasks.length - 1]?.name || ''
 
   const handleCreateNewTask = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -60,10 +62,11 @@ export const MainForm = () => {
       <div className={styles.formRow}>
         <DefaultInput
           id='input'
-          labelText='Task'
+          labelText='Task:'
           type='text'
           ref={taskNameInput}
           disabled={!!state.activeTask}
+          defaultValue={lastTaskName}
         />
       </div>
       <div className={styles.formRow}>
