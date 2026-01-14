@@ -63,4 +63,7 @@
 
   --link-color: #0b8a60;
   --link-hover: #065f46;
+
+  --toastify-text-color-light: #e6e9f0;
+  --toastify-text-color-dark: #e6e9f0;
 }
