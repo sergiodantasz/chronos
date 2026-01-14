@@ -2,6 +2,7 @@ import type { TaskState } from '../../models/TaskState'
 
 import { getNextCycle } from '../../utils/cycles'
 
+import { initialTaskState } from './initialTaskState'
 import type { TaskActionModel } from './taskActions'
 
 export function taskReducer(state: TaskState, action: TaskActionModel) {
@@ -32,7 +33,7 @@ export function taskReducer(state: TaskState, action: TaskActionModel) {
       }
     }
     case 'RESET_STATE': {
-      return state
+      return { ...initialTaskState }
     }
     case 'COMPLETE_TASK': {
       return {
