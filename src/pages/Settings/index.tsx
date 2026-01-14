@@ -16,7 +16,7 @@ import { SaveIcon } from 'lucide-react'
 import styles from './styles.module.css'
 
 export const Settings = () => {
-  const { state } = useTaskContext()
+  const { state, dispatch } = useTaskContext()
   const focusTimeInput = useRef<HTMLInputElement>(null)
   const shortBreakTimeInput = useRef<HTMLInputElement>(null)
   const longBreakTimeInput = useRef<HTMLInputElement>(null)
@@ -50,6 +50,9 @@ export const Settings = () => {
       })
       return
     }
+
+    dispatch({ type: 'CHANGE_SETTINGS', payload: { focusTime, shortBreakTime, longBreakTime } })
+    showMessage.success('The settings have been saved.')
   }
 
   return (

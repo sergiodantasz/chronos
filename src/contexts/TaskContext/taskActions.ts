@@ -10,6 +10,10 @@ type TaskActionWithPayload =
       type: 'COUNT_DOWN'
       payload: Pick<TaskState, 'secondsRemaining'>
     }
+  | {
+      type: 'CHANGE_SETTINGS'
+      payload: TaskState['config']
+    }
 
 type TaskActionWithoutPayload = {
   type: 'RESET_STATE' | 'INTERRUPT_TASK' | 'COMPLETE_TASK'

@@ -54,5 +54,13 @@ export function taskReducer(state: TaskState, action: TaskActionModel) {
         secondsRemaining: action.payload.secondsRemaining,
       }
     }
+    case 'CHANGE_SETTINGS': {
+      return {
+        ...state,
+        config: {
+          ...action.payload,
+        },
+      }
+    }
   }
 }
