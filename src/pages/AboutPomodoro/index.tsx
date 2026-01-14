@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import { MainTemplate } from '../../templates/MainTemplate'
 
 import { Container } from '../../components/Container'
@@ -6,6 +8,10 @@ import { Heading } from '../../components/Heading'
 import { RouterLink } from '../../components/RouterLink'
 
 export const AboutPomodoro = () => {
+  useEffect(() => {
+    document.title = 'Understand the Pomodoro Technique - Chronos'
+  }, [])
+
   return (
     <MainTemplate>
       <Container>

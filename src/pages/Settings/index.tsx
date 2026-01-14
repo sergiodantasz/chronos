@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 
 import { MainTemplate } from '../../templates/MainTemplate'
 
@@ -54,6 +54,10 @@ export const Settings = () => {
     dispatch({ type: 'CHANGE_SETTINGS', payload: { focusTime, shortBreakTime, longBreakTime } })
     showMessage.success('The settings have been saved.')
   }
+
+  useEffect(() => {
+    document.title = 'Settings - Chronos'
+  }, [])
 
   return (
     <MainTemplate>

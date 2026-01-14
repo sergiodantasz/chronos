@@ -24,6 +24,10 @@ const taskTypeDictionary = {
 }
 
 export const History = () => {
+  useEffect(() => {
+    document.title = 'History - Chronos'
+  }, [])
+
   const { state, dispatch } = useTaskContext()
   const hasTasks = state.tasks.length > 0
   const [confirmClearHistory, setConfirmClearHistory] = useState(false)
