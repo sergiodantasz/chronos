@@ -11,7 +11,7 @@ export const Tip = () => {
     activeTask: {
       focusTime: (
         <span>
-          Focus for <b>{state.config.focusTime} minutes</b>.
+          Focus for <b>{state.config.focusTime} minute(s)</b>.
         </span>
       ),
       shortBreakTime: (
@@ -28,17 +28,17 @@ export const Tip = () => {
     noActiveTask: {
       focusTime: (
         <span>
-          The next cycle lasts <b>{state.config.focusTime} minutes</b>.
+          The next cycle lasts <b>{state.config.focusTime} minute(s)</b>.
         </span>
       ),
       shortBreakTime: (
         <span>
-          The next cycle lasts <b>{state.config.shortBreakTime} minutes</b>.
+          The next cycle lasts <b>{state.config.shortBreakTime} minute(s)</b>.
         </span>
       ),
       longBreakTime: (
         <span>
-          The next cycle lasts <b>{state.config.longBreakTime} minutes</b>.
+          The next cycle lasts <b>{state.config.longBreakTime} minute(s)</b>.
         </span>
       ),
     },
