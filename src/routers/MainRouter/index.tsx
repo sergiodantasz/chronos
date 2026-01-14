@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react'
 
 import { AboutPomodoro } from '../../pages/AboutPomodoro'
+import { History } from '../../pages/History'
 import { Home } from '../../pages/Home'
 import { NotFound } from '../../pages/NotFound'
 
@@ -23,6 +24,10 @@ export function MainRouter() {
         <Route
           path='/'
           element={<Home />}
+        />
+        <Route
+          path='/history/'
+          element={<History />}
         />
         <Route
           path='/about-pomodoro/'
