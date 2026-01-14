@@ -40,6 +40,7 @@ export const History = () => {
   })
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSortTaskOptions((prevState) => ({
       ...prevState,
       tasks: sortTasks({
