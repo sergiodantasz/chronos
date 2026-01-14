@@ -3,6 +3,7 @@ import { MainTemplate } from '../../templates/MainTemplate'
 import { Container } from '../../components/Container'
 import { GenericHtml } from '../../components/GenericHtml'
 import { Heading } from '../../components/Heading'
+import { RouterLink } from '../../components/RouterLink'
 
 export const NotFound = () => {
   return (
@@ -15,9 +16,9 @@ export const NotFound = () => {
             explore the universe, or got lost somewhere between two black holes. 🌌
           </p>
           <p>
-            But don't worry, you're not lost in space (yet). You can safely head back to the <a href='/'>home page</a>{' '}
-            or <a href='/history'>the history page</a> — or you can stay here and pretend you've found a secret page
-            that only the coolest explorers can access. 🧭✨
+            But don't worry, you're not lost in space (yet). You can safely head back to the{' '}
+            <RouterLink to='/'>home page</RouterLink> or <RouterLink to='/history'>the history page</RouterLink> — or
+            you can stay here and pretend you've found a secret page that only the coolest explorers can access. 🧭✨
           </p>
           <p>
             If you think this page should exist (or if you just want to chat about time travel and wormholes), feel free

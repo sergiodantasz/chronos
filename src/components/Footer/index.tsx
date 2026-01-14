@@ -1,10 +1,17 @@
+import { RouterLink } from '../RouterLink'
+
 import styles from './styles.module.css'
 
 export const Footer = () => {
   return (
     <footer className={styles.footer}>
-      <a href=''>Understand how the Pomodoro Technique works.</a>
-      <a href=''>&copy; {new Date().getFullYear()} Sérgio Dantas. All rights reserved.</a>
+      <RouterLink to='/about-pomodoro/'>Understand how the Pomodoro Technique works.</RouterLink>
+      <a
+        href='https://github.com/sergiodantasz/chronos'
+        target='_blank'
+      >
+        &copy; {new Date().getFullYear()} Sérgio Dantas. All rights reserved.
+      </a>
     </footer>
   )
 }
