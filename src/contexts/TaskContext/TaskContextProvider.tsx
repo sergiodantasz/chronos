@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useRef } from 'react'
 
 import { loadBeep } from '../../utils/audio'
+import { formatTime } from '../../utils/time'
 
 import { TimerWorkerManager } from '../../workers/timerWorkerManager'
 import { initialTaskState } from './initialTaskState'
@@ -40,6 +41,7 @@ export const TaskContextProvider = ({ children }: TaskContextProviderProps) => {
     } else {
       worker.postMessage(state)
     }
+    document.title = `${formatTime(state.secondsRemaining)} - Chronos`
   }, [worker, state])
 
   useEffect(() => {
